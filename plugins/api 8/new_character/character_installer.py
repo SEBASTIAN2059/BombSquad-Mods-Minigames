@@ -53,7 +53,7 @@ class IntallPopup(popup.PopupWindow):
 
 	def __init__(self, success: bool = True, unistall: bool = False):
 		app = bui.app
-		uiscale = app.ui.uiscale
+		uiscale = app.ui_v1.uiscale
 		self._width = 400
 		self._height = 310
 		bg_color = (0.5, 0.4, 0.6)
@@ -146,8 +146,8 @@ class IntallPopup(popup.PopupWindow):
 			color=(1.0, 1.0, 0.0)
 		)
 		if not success:
-			bs.getsound('error').play()
-		bs.getsound(sound).play()
+			bui.getsound('error').play()
+		bui.getsound(sound).play()
 
 	def close(self) -> None:
 		bui.containerwidget(
@@ -385,9 +385,9 @@ class Installer:
 				app = self.textures_dir + t
 				user = self.files_dir + t
 				shutil.copyfile(user, app)
-			bui.timer(1.0, bui.Call(IntallPopup, True))
+			bui.apptimer(1.0, bui.Call(IntallPopup, True))
 		except:
-			bui.timer(1.0, bui.Call(IntallPopup, False))
+			bui.apptimer(1.0, bui.Call(IntallPopup, False))
 
 	def uninstall_mod(self) -> None:
 		if not self._installed():
@@ -408,9 +408,9 @@ class Installer:
 						continue
 				app = self.textures_dir + t
 				os.remove(app)
-			bui.timer(1.0, bui.Call(IntallPopup, True, True))
+			bui.apptimer(1.0, bui.Call(IntallPopup, True, True))
 		except:
-			bui.timer(1.0, bui.Call(IntallPopup, False, True))
+			bui.apptimer(1.0, bui.Call(IntallPopup, False, True))
 
 # ba_meta export plugin
 class Character(bs.Plugin):
